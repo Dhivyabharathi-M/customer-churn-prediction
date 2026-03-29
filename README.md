@@ -208,12 +208,25 @@ The model was deployed using Flask:
 
 ---
 
-## 📦 Project Structure
-customer-churn-prediction/
-│
-├── data/
-├── notebooks/
-├── models/
-├── app/
-├── README.md
-└── requirements.txt
+---
+
+## 🛠 Technologies Used
+
+- Python
+- Pandas, NumPy
+- Scikit-learn
+- XGBoost
+- Flask
+- Matplotlib, Seaborn
+
+---
+
+## 📌 Final Note
+
+This project demonstrates:
+- Data analysis
+- Machine learning modeling
+- Model comparison
+- Real-world deployment
+
+It provides a complete pipeline from raw data to prediction system.
