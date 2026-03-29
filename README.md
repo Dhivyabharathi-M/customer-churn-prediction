@@ -38,16 +38,10 @@ customer-churn-prediction/
 ├── models/
 │   ├── best_model.pkl
 │   ├── scaler.pkl
-│   └── model_comparison_results.csv
 │
 ├── templates/
 │   ├── index.html
-│   └── result.html
-│
-├── static/
-│   └── css/
-│       └── style.css
-│
+|
 ├── app.py
 ├── requirements.txt
 └── README.md
