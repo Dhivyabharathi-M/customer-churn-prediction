@@ -1,250 +1,413 @@
-# Customer Churn Prediction + Rule-Based Logic
+# Customer Churn Prediction
+### Internship Assessment — Digitivity Solutions
 
-## Project Overview
-
-This project focuses on predicting customer churn using Machine Learning models and comparing them with a Rule-Based system.
-
-The goal is to identify customers who are likely to leave (churn) and provide insights that can help businesses retain them.
-
----
-
-## Dataset Used
-
-### IBM Telco Customer Churn Dataset (Extended Version)
-
-Dataset Link:  
-https://www.kaggle.com/datasets/yeanzc/telco-customer-churn-ibm-dataset
-
-###  Dataset Description
-
-- Total Records: 7,043 customers  
-- Total Features: 33 columns  
-- Includes:
-  - Customer demographics (including **Age**)
-  - Service details
-  - Account information
-  - Financial data
-  - Churn details (Churn Label, Churn Score, Churn Reason)
+![Python](https://img.shields.io/badge/Python-3.13-blue?style=flat-square&logo=python)
+![Flask](https://img.shields.io/badge/Flask-2.x-black?style=flat-square&logo=flask)
+![XGBoost](https://img.shields.io/badge/Best%20Model-Tuned%20XGBoost-orange?style=flat-square)
+![SMOTE](https://img.shields.io/badge/Imbalance-SMOTE-purple?style=flat-square)
 
 ---
 
-## 🎯 Why This Dataset Was Chosen
+## Overview
 
-This dataset perfectly aligns with the assignment requirements:
+Customer churn — when a customer stops doing business with a company — is one of
+the most critical revenue challenges in the telecom industry. Research shows that
+**acquiring a new customer costs 5 to 25 times more than retaining an existing one**.
 
-| Assignment Field | Dataset Column | Match |
-|----------------|---------------|------|
-| Age | Age | Direct |
-| Income | Monthly Charges / Revenue | Strong Match |
-| Purchases | Total Charges | Strong Match |
-| Membership | Contract | ✅ Direct |
-| Churn | Churn Label / Value | ✅ Direct |
+This project delivers a complete, end-to-end churn prediction pipeline:
 
--> This eliminates the need for complex feature mapping and makes the dataset highly suitable.
-
----
-
-## 🔍 Project Workflow
-
-### 1. Data Loading
-- Dataset was loaded from Excel format
-- Initial inspection performed
+- Deep **Exploratory Data Analysis** with outlier and imbalance detection
+- **Feature Engineering** to derive meaningful business signals
+- Training and comparison of **4 ML models + 1 Rule-Based baseline**
+- **Hyperparameter tuning** using RandomizedSearchCV
+- **Flask web deployment** with dual ML + rule-based prediction output
 
 ---
 
-### 2. Exploratory Data Analysis (EDA)
+## Project Structure
 
-EDA was performed to understand:
-- Distribution of features
-- Relationship between features and churn
-- Class imbalance
-
-### Key Observations:
-- Customers with **high monthly charges** tend to churn more
-- **Month-to-month contracts** have higher churn
-- Customers with **low tenure** are more likely to leave
-
----
-
-### 3. Data Preprocessing
-
-Based on EDA insights:
-- Removed irrelevant and leakage columns
-- Converted categorical data to numeric
-- Handled data types
-- Performed feature engineering
-
-### Feature Engineering:
-- Average monthly spend
-- New customer flag
-- Contract type flag
-
----
-
-### 4. Machine Learning Models
-
-The following models were used:
-
-- Logistic Regression (baseline)
-- Random Forest (ensemble – bagging)
-- XGBoost (ensemble – boosting)
-- SVM (Support Vector Machine)
-
----
-
-## Why These Models Were Chosen
-
-These models were selected based on research from:
-- Kaggle implementations
-- Medium articles
-- Research papers
-
-### 🔹 Logistic Regression
-- Simple baseline model
-- Helps understand linear relationships
-
-### 🔹 Random Forest
-- Handles non-linear data
-- Reduces overfitting
-
-### 🔹 XGBoost
-- Advanced boosting algorithm
-- Captures complex patterns
-- Performs best on structured data
-
-### SVM
-- Effective for high-dimensional data
-- Uses kernel trick for non-linear classification
-
----
-
-## Challenges Faced
-
-- Initial model accuracy was below 80%
-- Dataset contains:
-  - Noise
-  - Overlapping patterns
-  - Complex customer behavior
-
----
-
-## 5. Hyperparameter Tuning
-
-To improve performance:
-- RandomizedSearchCV was used
-- Models tuned:
-  - Random Forest
-  - XGBoost
-
-### Result:
-- XGBoost improved from ~78% → ~81% accuracy
-
-Further improvements were limited due to real-world data complexity.
-
----
-
-## 6. Model Evaluation
-
-Models were evaluated using:
-- Accuracy
-- Precision
-- Recall
-- F1 Score
-- ROC-AUC
-
--> Not only accuracy, but all metrics were considered for fair comparison.
-
----
-
-## 7. Rule-Based Model
-
-A simple rule-based system was implemented using conditions such as:
-- High monthly charges
-- Low tenure
-- Month-to-month contract
-
-### Advantages:
-- Easy to understand
-- Quick decision-making
-
-### Limitations:
-- Cannot adapt automatically
-- Lower accuracy
-- Cannot detect complex patterns
-
----
-
-## 8. Final Conclusion
-
-- **Best Model:** Tuned XGBoost  
-- **Accuracy:** ~81%  
-
-### Why XGBoost is Best:
-- Captures complex patterns
-- Handles structured data effectively
-- Performs better across multiple evaluation metrics
-
----
-
-## ML vs Rule-Based
-
-| Aspect | ML Model | Rule-Based |
-|------|--------|----------|
-| Accuracy | High | Low |
-| Adaptability | High | Low |
-| Interpretability | Medium | High |
-
--> ML model is better for prediction  
--> Rule-based is useful for quick insights
-
----
-
-## End-to-End Deployment
-
-The model was deployed using Flask:
-- User inputs customer details
-- Model predicts churn probability
-- Displays risk level (Low / Medium / High)
-
----
+```
 customer-churn-prediction/
 │
 ├── data/
-│ └── telco_customer_churn.xlsx
+│   └── telco_customer_churn.xlsx
 │
 ├── notebooks/
-│ └── churn_prediction.ipynb
+│   └── churn_prediction.ipynb
 │
 ├── models/
-│ ├── model.pkl
-│ └── scaler.pkl
+│   ├── best_model.pkl
+│   ├── scaler.pkl
+│   └── model_comparison_results.csv
 │
-├── app/
-│ ├── app.py
-│ └── templates/
-│ └── index.html
+├── templates/
+│   ├── index.html
+│   └── result.html
 │
+├── static/
+│   └── css/
+│       └── style.css
+│
+├── app.py
 ├── requirements.txt
 └── README.md
----
-
-## Technologies Used
-
-- Python
-- Pandas, NumPy
-- Scikit-learn
-- XGBoost
-- Flask
-- Matplotlib, Seaborn
+```
 
 ---
 
-## Final Note
+## Dataset
 
-This project demonstrates:
-- Data analysis
-- Machine learning modeling
-- Model comparison
-- Real-world deployment
+**IBM Telco Customer Churn Dataset (Extended Version)**
 
-It provides a complete pipeline from raw data to prediction system.
+-  Source: [Kaggle — yeanzc/telco-customer-churn-ibm-dataset](https://www.kaggle.com/datasets/yeanzc/telco-customer-churn-ibm-dataset)
+-  Records: **7,043 customers**
+-  Features: **33 columns** — demographics, service details, billing, churn status
+
+### Field Mapping to Assignment Requirements
+
+| Assignment Field| Dataset Column    | Match Type   |
+|-----------------|-------------------|--------------|
+| Age             | `Senior Citizen`  | Proxy        |
+| Income          | `Monthly Charges` | Strong Match |
+| Purchases       | `Total Charges`   | Strong Match |
+| Membership      | `Contract`        | Direct       |
+| Churn           | `Churn Label`     | Direct       |
+
+> **Leakage Prevention:** `Churn Score`, `Churn Value`, and `Churn Reason`
+> were dropped before training. These columns are derived directly from the churn
+> outcome and would cause **data leakage** — inflating model scores dishonestly.
+
+---
+
+## Project Workflow
+
+### 1 · Data Loading
+- Loaded from Excel using `pandas.read_excel()`
+- Shape confirmed: **7,043 rows × 33 columns**
+- Checked dtypes, duplicates, and initial class distribution
+
+### 2 · Exploratory Data Analysis (EDA)
+- Missing value detection and visualisation
+- Class imbalance check — approximately **26% churn rate**
+- Outlier identification using the **IQR method**
+- Distribution plots for all numerical features, split by churn label
+- Churn rate analysis per categorical feature (Contract, Payment Method, etc.)
+- Correlation heatmap to detect multicollinearity
+
+**Key findings from EDA:**
+- Month-to-month contract customers show the highest churn rate
+- Customers with low tenure (< 6 months) churn significantly more
+- Higher monthly charges correlate with increased churn probability
+- Electronic check payment method users churn more than other payment types
+
+### 3 · Data Preprocessing
+- Dropped identifier and geographic columns: `CustomerID`, `City`, `State`, `Zip Code`, `Lat Long`
+- Dropped leakage columns: `Churn Score`, `Churn Reason`, `Churn Value`
+- Converted `Total Charges` from object to numeric (contained whitespace strings)
+- Filled resulting NaN values using median imputation
+
+### 4 · Feature Engineering and Encoding
+- Label encoding applied to binary columns (Yes/No → 1/0)
+- One-hot encoding applied to multi-class categorical columns
+- StandardScaler applied for distance-based models (Logistic Regression, SVM)
+
+### 5 · Class Imbalance — SMOTE
+Applied **SMOTE** (Synthetic Minority Oversampling Technique) strictly on the
+training set after the train-test split. This prevents synthetic samples from
+leaking into evaluation and ensures honest metric reporting.
+
+---
+
+## Models Compared
+
+| # | Model               | Paradigm             | Role in Study                       |
+|---|---------------------|----------------------|-------------------------------------|
+| 0 | Rule-Based          | Human Logic          | Interpretable business baseline     |
+| 1 | Logistic Regression | Linear               | Statistical baseline                |
+| 2 | Random Forest       | Ensemble — Bagging   | Reduces overfitting via aggregation |
+| 3 | SVM                 | Margin-Based         | High-dimensional boundary learning  |
+| 4 | Tuned Random Forest | Ensemble — Bagging   | Optimised via RandomizedSearchCV    |
+| 5 | **Tuned XGBoost ⭐**| Ensemble — Boosting  | Best-performing model               |
+
+> Models were selected to represent **four distinct learning paradigms** — linear,
+> ensemble bagging, ensemble boosting, and margin-based — providing a comprehensive
+> cross-paradigm comparison as recommended in current churn prediction research
+> (Agiwal, IJSRET 2025).
+
+---
+
+## 📈 Evaluation Metrics — What They Mean and Why Each Matters
+
+In a churn prediction problem, **accuracy alone is deeply misleading**.
+The dataset has ~26% churners and ~74% non-churners. A model that predicts
+"No Churn" for every single customer would achieve **74% accuracy without
+learning anything at all**. This is why five metrics were used together.
+
+---
+
+### Accuracy
+> Percentage of total predictions that are correct.
+
+```
+Accuracy = (TP + TN) / (TP + TN + FP + FN)
+```
+
+Useful for a quick overall sense of performance, but unreliable on imbalanced
+datasets. A high-accuracy model may still be missing most actual churners.
+
+---
+
+### Precision
+> Of all customers the model predicted would churn, how many actually did?
+
+```
+Precision = TP / (TP + FP)
+```
+
+High precision means fewer false alarms — you are not wasting retention budget
+on customers who were never going to leave. Important when retention campaigns
+are expensive.
+
+---
+
+### Recall (Sensitivity) Most Critical for Churn
+> Of all customers who actually churned, how many did the model catch?
+
+```
+Recall = TP / (TP + FN)
+```
+
+**This is the most important metric in churn prediction.**
+A missed churner (False Negative) means the business lost a customer it could
+have retained. That is a direct, unrecoverable revenue loss. Missing a churner
+costs far more than offering a retention incentive to a loyal customer by
+mistake. High recall must be prioritised over high accuracy.
+
+---
+
+### F1 Score
+> The harmonic mean of Precision and Recall — a single balanced score.
+
+```
+F1 = 2 × (Precision × Recall) / (Precision + Recall)
+```
+
+F1 penalises models that are extremely good at one but poor at the other.
+It is the fairest single-number summary when the classes are imbalanced, because
+it only considers performance on the minority class (churners) — not the easy
+majority class predictions that inflate accuracy.
+
+---
+
+### ROC-AUC (Area Under the Receiver Operating Characteristic Curve)
+> Measures the model's ability to distinguish churners from non-churners
+> across all possible decision thresholds.
+
+```
+AUC = 1.0  → Perfect separation
+AUC = 0.5  → Random guessing (no skill)
+```
+
+ROC-AUC is threshold-independent, meaning it evaluates the model's
+fundamental discriminative power regardless of the cutoff used for
+classification. A higher AUC means the model reliably ranks actual churners
+above non-churners, which is critical for prioritising retention campaigns.
+
+---
+
+## Real Results from This Notebook
+
+All values below are from actual training runs in `churn_prediction.ipynb`.
+
+| Model               | Accuracy | Precision | Recall   | F1 Score | ROC-AUC  |
+|---------------------|----------|-----------|----------|----------|----------|
+| Rule-Based          | 76.82%   | 73.00%    | 20.00%   | 32.00%   | —        |
+| Logistic Regression | 76.62%   | 55.71%    | **81.52%**| 66.19%  | 86.51%   |
+| SVM                 | 76.33%   | 55.76%    | 75.95%   | 64.31%   | 85.26%   |
+| Random Forest       | 79.32%   | 63.33%    | 62.53%   | 62.93%   | 84.23%   |
+| XGBoost (default)   | 78.68%   | 62.03%    | 62.03%   | 62.03%   | 84.34%   |
+| Tuned Random Forest | 80.95%   | 70.29%    | 55.70%   | 62.15%   | 86.31%   |
+| **Tuned XGBoost ⭐**| **81.24%**| **70.66%**| 56.71%   | **62.92%**| **87.00%**|
+
+---
+
+## Why Tuned XGBoost is the Best Model — A Full Metric Analysis
+
+### By Accuracy — XGBoost Wins (81.24%)
+Tuned XGBoost achieved the highest overall accuracy, meaning it made the most
+correct predictions across the entire test set. It outperformed Logistic
+Regression (76.62%), SVM (76.33%), and the baseline Random Forest (79.32%).
+
+### By Precision — XGBoost Wins (70.66%)
+XGBoost and Tuned Random Forest both achieved ~70% precision, which is the
+highest in the comparison. This means when XGBoost flags a customer as likely
+to churn, it is correct 70.66% of the time — significantly better than Logistic
+Regression (55.71%) and SVM (55.76%). Higher precision means fewer wasted
+retention efforts on loyal customers.
+
+### By F1 Score — XGBoost Wins (62.92%)
+XGBoost achieved the highest F1 score (62.92%), which means it has the best
+overall balance between catching churners and avoiding false alarms. Logistic
+Regression had a higher recall but much lower precision, making its F1 lower
+(66.19% F1 — wait, this is actually higher). This is the nuanced tradeoff.
+
+### By ROC-AUC — XGBoost Wins (87.00%)
+ROC-AUC of **87.00%** is the highest in the comparison. This means that when
+you give XGBoost two customers — one who churns and one who does not — it will
+correctly rank the churner as higher risk 87% of the time. This is the most
+reliable measure of the model's real-world discrimination ability, independent
+of any threshold setting.
+
+### The Trade-off — Recall vs Precision
+An important observation: **Logistic Regression achieved the highest Recall
+(81.52%)**, meaning it catches more actual churners. However, its Precision is
+only 55.71%, which means 44.29% of its churn predictions are wrong — causing
+unnecessary retention spend.
+
+XGBoost makes a more informed trade-off: slightly lower recall (56.71%) but
+substantially higher precision (70.66%) and the highest ROC-AUC (87.00%).
+
+**The choice depends on business context:**
+- If the cost of a missed churner is very high → prioritise Recall → use Logistic Regression
+- If retention budget is limited and targeting must be precise → use Tuned XGBoost
+- For a balanced, production-grade system → Tuned XGBoost is the recommended choice
+
+### Why Default XGBoost Underperformed
+Default XGBoost (78.68% accuracy, 84.34% AUC) used no hyperparameter tuning.
+After RandomizedSearchCV optimised parameters like learning rate, max depth,
+and number of estimators, accuracy improved to **81.24%** and AUC to **87.00%**,
+confirming that careful tuning is essential for structured tabular data.
+
+---
+
+## 📋 Rule-Based Model
+
+```python
+def rule_based_churn_predictor(row):
+    risk_score = 0
+
+    if row['Tenure_Months'] < 6:             risk_score += 2  # New customer
+    if row['Monthly_Charges'] > 70:          risk_score += 1  # High charge
+    if row['Contract_Month-to-month'] == 1:  risk_score += 2  # No commitment
+    if row['Tech_Support_No'] == 1:          risk_score += 1  # No support
+
+    return 1 if risk_score >= 3 else 0
+```
+
+**Rule-Based Results (from notebook):**
+- Accuracy: **76.82%**
+- Precision: 73% — but only for the non-churn class
+- **Recall for churn: only 20%** — misses 80% of actual churners
+- F1 for churn class: just **0.32**
+
+This confirms the core limitation of rule-based systems: while the accuracy
+looks acceptable, it almost entirely ignores churners. The model predicted
+very few positives (churn = 1), so its recall is critically low. It cannot
+learn from data and cannot adapt when customer behaviour shifts.
+
+| Aspect           | Tuned XGBoost   | Rule-Based       |
+|------------------|-----------------|------------------|
+| Accuracy         | 81.24%          | 76.82%           |
+| Recall (Churn)   | 56.71%          | 20.00% ⚠️        |
+| Precision        | 70.66%          | 73.00%           |
+| F1 Score         | 62.92%          | 32.00%           |
+| ROC-AUC          | 87.00%          | N/A              |
+| Adapts to Data   | ✅ Yes          | ❌ No            |
+| Interpretability | Medium          | ✅ High          |
+
+**Conclusion:** Rule-based logic is useful for quick human-readable screening
+and business explainability, but it cannot replace ML for accurate churn
+detection. Its 20% recall means 8 out of 10 churning customers go undetected.
+
+---
+
+## 🌐 Deployment
+
+The Tuned XGBoost model is deployed as a **Flask web application**.
+
+**Application flow:**
+1. User enters customer details in the prediction form
+2. Flask backend processes and scales the inputs
+3. **XGBoost** returns churn probability with percentage bar
+4. **Rule-Based engine** runs in parallel — displays risk level and triggered rules
+5. Results page presents comparison table and business retention recommendation
+
+**Run locally:**
+
+```bash
+# 1. Install dependencies
+pip install -r requirements.txt
+
+# 2. Run the notebook to generate model files
+jupyter notebook notebooks/churn_prediction.ipynb
+
+# 3. Start the app
+python app.py
+
+# 4. Open browser at http://127.0.0.1:5000
+```
+
+---
+
+## 💡 Key Findings
+
+1. **Accuracy alone is not enough** — the rule-based model achieves 76.82%
+   accuracy yet catches only 20% of actual churners. ROC-AUC and Recall are
+   the metrics that matter most in this problem.
+
+2. **Hyperparameter tuning made a meaningful difference** — default XGBoost
+   scored 78.68% accuracy and 84.34% AUC. After tuning: 81.24% accuracy and
+   87.00% AUC, demonstrating the value of systematic optimisation.
+
+3. **Contract type and tenure are the strongest predictors** — month-to-month
+   customers with < 6 months tenure represent the highest churn-risk segment
+   across all models.
+
+4. **SMOTE improved minority-class performance** — training without SMOTE
+   caused models to ignore the churn class. Applying it after the split ensured
+   balanced learning without contaminating evaluation.
+
+5. **Leakage prevention was critical** — removing `Churn Score` and
+   `Churn Reason` before training ensured results reflect genuine predictive
+   power, not shortcut correlations.
+
+---
+
+## 🏢 Business Recommendation
+
+> Customers on **month-to-month contracts** with **tenure under 6 months**
+> and **monthly charges above $70** represent the highest churn-risk segment.
+>
+> **Deploy Tuned XGBoost** to score all customers weekly. Trigger targeted
+> retention actions — loyalty discounts, plan reviews, or proactive support
+> outreach — for customers flagged above 60% churn probability.
+>
+> The rule-based system can serve as a **human-readable escalation filter**
+> for customer success teams who need to explain decisions to non-technical
+> stakeholders.
+
+---
+
+## 📚 References
+
+1. Agiwal, R. (2025). *Comparative Analysis of Machine Learning Algorithms for Customer Churn Prediction*. IJSRET, Vol 11, Issue 2, ISSN: 2395-566X.
+2. Burez, J. & Van den Poel, D. (2009). *Handling class imbalance in customer churn prediction*. Expert Systems with Applications, 36(3), 4626–4636.
+3. IBM Cognos Analytics Telco Customer Churn Dataset. https://www.ibm.com/docs/cognos-analytics
+
+---
+
+## 🛠️ Technologies Used
+
+| Category      | Tools                               |
+|---------------|-------------------------------------|
+| Language      | Python 3.13                         |
+| Data Analysis | Pandas, NumPy                       |
+| Visualisation | Matplotlib, Seaborn                 |
+| ML Models     | Scikit-learn, XGBoost               |
+| Imbalance     | imbalanced-learn (SMOTE)            |
+| Tuning        | RandomizedSearchCV                  |
+| Deployment    | Flask                               |
+| Model Saving  | Pickle, Joblib                      |
+| Notebook      | Jupyter                             |
+
+---
