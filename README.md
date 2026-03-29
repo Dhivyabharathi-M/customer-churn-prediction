@@ -1,11 +1,5 @@
 # Customer Churn Prediction
 ### Internship Assessment — Digitivity Solutions
-
-![Python](https://img.shields.io/badge/Python-3.13-blue?style=flat-square&logo=python)
-![Flask](https://img.shields.io/badge/Flask-2.x-black?style=flat-square&logo=flask)
-![XGBoost](https://img.shields.io/badge/Best%20Model-Tuned%20XGBoost-orange?style=flat-square)
-![SMOTE](https://img.shields.io/badge/Imbalance-SMOTE-purple?style=flat-square)
-
 ---
 
 ## Overview
@@ -16,7 +10,7 @@ the most critical revenue challenges in the telecom industry. Research shows tha
 
 This project delivers a complete, end-to-end churn prediction pipeline:
 
-- Deep **Exploratory Data Analysis** with outlier and imbalance detection
+- Deep **Exploratory Data Analysis and Data Preprocessing** with outlier and imbalance detection
 - **Feature Engineering** to derive meaningful business signals
 - Training and comparison of **4 ML models + 1 Rule-Based baseline**
 - **Hyperparameter tuning** using RandomizedSearchCV
@@ -121,7 +115,7 @@ leaking into evaluation and ensures honest metric reporting.
 | 2 | Random Forest       | Ensemble — Bagging   | Reduces overfitting via aggregation |
 | 3 | SVM                 | Margin-Based         | High-dimensional boundary learning  |
 | 4 | Tuned Random Forest | Ensemble — Bagging   | Optimised via RandomizedSearchCV    |
-| 5 | **Tuned XGBoost ⭐**| Ensemble — Boosting  | Best-performing model               |
+| 5 | **Tuned XGBoost**| Ensemble — Boosting  | Best-performing model               |
 
 > Models were selected to represent **four distinct learning paradigms** — linear,
 > ensemble bagging, ensemble boosting, and margin-based — providing a comprehensive
@@ -152,7 +146,7 @@ All values below are from actual training runs in `churn_prediction.ipynb`.
 | Random Forest       | 79.32%   | 63.33%    | 62.53%   | 62.93%   | 84.23%   |
 | XGBoost (default)   | 78.68%   | 62.03%    | 62.03%   | 62.03%   | 84.34%   |
 | Tuned Random Forest | 80.95%   | 70.29%    | 55.70%   | 62.15%   | 86.31%   |
-| **Tuned XGBoost ⭐**| **81.24%**| **70.66%**| 56.71%   | **62.92%**| **87.00%**|
+| **Tuned XGBoost**  | **81.24%**| **70.66%**| 56.71%   | **62.92%**| **87.00%**|
 
 ---
 
@@ -200,15 +194,15 @@ substantially higher precision (70.66%) and the highest ROC-AUC (87.00%).
 def rule_based_churn_predictor(row):
     risk_score = 0
 
-    if row['Tenure_Months'] < 6:             risk_score += 2  # New customer
-    if row['Monthly_Charges'] > 70:          risk_score += 1  # High charge
-    if row['Contract_Month-to-month'] == 1:  risk_score += 2  # No commitment
-    if row['Tech_Support_No'] == 1:          risk_score += 1  # No support
+    if row['Tenure_Months'] < 6:             risk_score += 2  
+    if row['Monthly_Charges'] > 70:          risk_score += 1  
+    if row['Contract_Month-to-month'] == 1:  risk_score += 2  
+    if row['Tech_Support_No'] == 1:          risk_score += 1  
 
     return 1 if risk_score >= 3 else 0
 ```
 
-**Rule-Based Results (from notebook):**
+**Rule-Based Results:**
 - Accuracy: **76.82%**
 - Precision: 73% — but only for the non-churn class
 - **Recall for churn: only 20%** — misses 80% of actual churners
@@ -284,21 +278,6 @@ python app.py
 5. **Leakage prevention was critical** — removing `Churn Score` and
    `Churn Reason` before training ensured results reflect genuine predictive
    power, not shortcut correlations.
-
----
-
-## Business Recommendation
-
-> Customers on **month-to-month contracts** with **tenure under 6 months**
-> and **monthly charges above $70** represent the highest churn-risk segment.
->
-> **Deploy Tuned XGBoost** to score all customers weekly. Trigger targeted
-> retention actions — loyalty discounts, plan reviews, or proactive support
-> outreach — for customers flagged above 60% churn probability.
->
-> The rule-based system can serve as a **human-readable escalation filter**
-> for customer success teams who need to explain decisions to non-technical
-> stakeholders.
 
 ---
 
