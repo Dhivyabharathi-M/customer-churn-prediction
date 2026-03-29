@@ -10,7 +10,7 @@ The goal is to identify customers who are likely to leave (churn) and provide in
 
 ## 📂 Dataset Used
 
-### ✅ IBM Telco Customer Churn Dataset (Extended Version)
+### IBM Telco Customer Churn Dataset (Extended Version)
 
 Dataset Link:  
 https://www.kaggle.com/datasets/yeanzc/telco-customer-churn-ibm-dataset
@@ -34,13 +34,13 @@ This dataset perfectly aligns with the assignment requirements:
 
 | Assignment Field | Dataset Column | Match |
 |----------------|---------------|------|
-| Age | Age | ✅ Direct |
-| Income | Monthly Charges / Revenue | ✅ Proxy |
-| Purchases | Total Charges | ✅ Proxy |
+| Age | Age | Direct |
+| Income | Monthly Charges / Revenue | Strong Match |
+| Purchases | Total Charges | Strong Match |
 | Membership | Contract | ✅ Direct |
 | Churn | Churn Label / Value | ✅ Direct |
 
-👉 This eliminates the need for complex feature mapping and makes the dataset highly suitable.
+-> This eliminates the need for complex feature mapping and makes the dataset highly suitable.
 
 ---
 
@@ -59,7 +59,7 @@ EDA was performed to understand:
 - Relationship between features and churn
 - Class imbalance
 
-### 🔑 Key Observations:
+### Key Observations:
 - Customers with **high monthly charges** tend to churn more
 - **Month-to-month contracts** have higher churn
 - Customers with **low tenure** are more likely to leave
@@ -74,7 +74,7 @@ Based on EDA insights:
 - Handled data types
 - Performed feature engineering
 
-### 🔧 Feature Engineering:
+### Feature Engineering:
 - Average monthly spend
 - New customer flag
 - Contract type flag
@@ -92,7 +92,7 @@ The following models were used:
 
 ---
 
-## 🤖 Why These Models Were Chosen
+## Why These Models Were Chosen
 
 These models were selected based on research from:
 - Kaggle implementations
@@ -112,13 +112,13 @@ These models were selected based on research from:
 - Captures complex patterns
 - Performs best on structured data
 
-### 🔹 SVM
+### SVM
 - Effective for high-dimensional data
 - Uses kernel trick for non-linear classification
 
 ---
 
-## ⚠️ Challenges Faced
+## Challenges Faced
 
 - Initial model accuracy was below 80%
 - Dataset contains:
@@ -128,7 +128,7 @@ These models were selected based on research from:
 
 ---
 
-## ⚙️ Hyperparameter Tuning
+## 5. Hyperparameter Tuning
 
 To improve performance:
 - RandomizedSearchCV was used
@@ -136,14 +136,14 @@ To improve performance:
   - Random Forest
   - XGBoost
 
-### 📈 Result:
+### Result:
 - XGBoost improved from ~78% → ~81% accuracy
 
 Further improvements were limited due to real-world data complexity.
 
 ---
 
-## 📊 Model Evaluation
+## 6. Model Evaluation
 
 Models were evaluated using:
 - Accuracy
@@ -152,29 +152,29 @@ Models were evaluated using:
 - F1 Score
 - ROC-AUC
 
-👉 Not only accuracy, but all metrics were considered for fair comparison.
+-> Not only accuracy, but all metrics were considered for fair comparison.
 
 ---
 
-## 🧠 Rule-Based Model
+## 7. Rule-Based Model
 
 A simple rule-based system was implemented using conditions such as:
 - High monthly charges
 - Low tenure
 - Month-to-month contract
 
-### ✅ Advantages:
+### Advantages:
 - Easy to understand
 - Quick decision-making
 
-### ❌ Limitations:
+### Limitations:
 - Cannot adapt automatically
 - Lower accuracy
 - Cannot detect complex patterns
 
 ---
 
-## 🏆 Final Conclusion
+## 8. Final Conclusion
 
 - **Best Model:** Tuned XGBoost  
 - **Accuracy:** ~81%  
@@ -186,7 +186,7 @@ A simple rule-based system was implemented using conditions such as:
 
 ---
 
-## 🔄 ML vs Rule-Based
+## ML vs Rule-Based
 
 | Aspect | ML Model | Rule-Based |
 |------|--------|----------|
@@ -194,12 +194,12 @@ A simple rule-based system was implemented using conditions such as:
 | Adaptability | High | Low |
 | Interpretability | Medium | High |
 
-👉 ML model is better for prediction  
-👉 Rule-based is useful for quick insights
+-> ML model is better for prediction  
+-> Rule-based is useful for quick insights
 
 ---
 
-## 🚀 End-to-End Deployment
+## End-to-End Deployment
 
 The model was deployed using Flask:
 - User inputs customer details
@@ -210,7 +210,7 @@ The model was deployed using Flask:
 
 ---
 
-## 🛠 Technologies Used
+## Technologies Used
 
 - Python
 - Pandas, NumPy
@@ -221,7 +221,7 @@ The model was deployed using Flask:
 
 ---
 
-## 📌 Final Note
+## Final Note
 
 This project demonstrates:
 - Data analysis
