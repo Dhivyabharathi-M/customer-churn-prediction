@@ -207,7 +207,25 @@ The model was deployed using Flask:
 - Displays risk level (Low / Medium / High)
 
 ---
-
+customer-churn-prediction/
+│
+├── data/
+│ └── telco_customer_churn.xlsx
+│
+├── notebooks/
+│ └── churn_prediction.ipynb
+│
+├── models/
+│ ├── model.pkl
+│ └── scaler.pkl
+│
+├── app/
+│ ├── app.py
+│ └── templates/
+│ └── index.html
+│
+├── requirements.txt
+└── README.md
 ---
 
 ## Technologies Used
