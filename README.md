@@ -130,86 +130,17 @@ leaking into evaluation and ensures honest metric reporting.
 
 ---
 
-## 📈 Evaluation Metrics — What They Mean and Why Each Matters
-
-In a churn prediction problem, **accuracy alone is deeply misleading**.
-The dataset has ~26% churners and ~74% non-churners. A model that predicts
-"No Churn" for every single customer would achieve **74% accuracy without
-learning anything at all**. This is why five metrics were used together.
-
----
-
-### Accuracy
-> Percentage of total predictions that are correct.
-
-```
-Accuracy = (TP + TN) / (TP + TN + FP + FN)
-```
-
-Useful for a quick overall sense of performance, but unreliable on imbalanced
-datasets. A high-accuracy model may still be missing most actual churners.
+## Evaluation Metrics
+Models compared using:
+- Accuracy  
+- Precision  
+- Recall  
+- F1 Score  
+- ROC-AUC  
 
 ---
 
-### Precision
-> Of all customers the model predicted would churn, how many actually did?
-
-```
-Precision = TP / (TP + FP)
-```
-
-High precision means fewer false alarms — you are not wasting retention budget
-on customers who were never going to leave. Important when retention campaigns
-are expensive.
-
----
-
-### Recall (Sensitivity) Most Critical for Churn
-> Of all customers who actually churned, how many did the model catch?
-
-```
-Recall = TP / (TP + FN)
-```
-
-**This is the most important metric in churn prediction.**
-A missed churner (False Negative) means the business lost a customer it could
-have retained. That is a direct, unrecoverable revenue loss. Missing a churner
-costs far more than offering a retention incentive to a loyal customer by
-mistake. High recall must be prioritised over high accuracy.
-
----
-
-### F1 Score
-> The harmonic mean of Precision and Recall — a single balanced score.
-
-```
-F1 = 2 × (Precision × Recall) / (Precision + Recall)
-```
-
-F1 penalises models that are extremely good at one but poor at the other.
-It is the fairest single-number summary when the classes are imbalanced, because
-it only considers performance on the minority class (churners) — not the easy
-majority class predictions that inflate accuracy.
-
----
-
-### ROC-AUC (Area Under the Receiver Operating Characteristic Curve)
-> Measures the model's ability to distinguish churners from non-churners
-> across all possible decision thresholds.
-
-```
-AUC = 1.0  → Perfect separation
-AUC = 0.5  → Random guessing (no skill)
-```
-
-ROC-AUC is threshold-independent, meaning it evaluates the model's
-fundamental discriminative power regardless of the cutoff used for
-classification. A higher AUC means the model reliably ranks actual churners
-above non-churners, which is critical for prioritising retention campaigns.
-
----
-
-## Real Results from This Notebook
+## Results
 
 All values below are from actual training runs in `churn_prediction.ipynb`.
 
@@ -225,25 +156,20 @@ All values below are from actual training runs in `churn_prediction.ipynb`.
 
 ---
 
-## Why Tuned XGBoost is the Best Model — A Full Metric Analysis
+## Why Tuned XGBoost is the Best Model 
 
 ### By Accuracy — XGBoost Wins (81.24%)
 Tuned XGBoost achieved the highest overall accuracy, meaning it made the most
-correct predictions across the entire test set. It outperformed Logistic
-Regression (76.62%), SVM (76.33%), and the baseline Random Forest (79.32%).
+correct predictions across the entire test set.
 
 ### By Precision — XGBoost Wins (70.66%)
 XGBoost and Tuned Random Forest both achieved ~70% precision, which is the
 highest in the comparison. This means when XGBoost flags a customer as likely
-to churn, it is correct 70.66% of the time — significantly better than Logistic
-Regression (55.71%) and SVM (55.76%). Higher precision means fewer wasted
-retention efforts on loyal customers.
+to churn, it is correct 70.66% of the time.
 
 ### By F1 Score — XGBoost Wins (62.92%)
 XGBoost achieved the highest F1 score (62.92%), which means it has the best
-overall balance between catching churners and avoiding false alarms. Logistic
-Regression had a higher recall but much lower precision, making its F1 lower
-(66.19% F1 — wait, this is actually higher). This is the nuanced tradeoff.
+overall balance between catching churners and avoiding false alarms.
 
 ### By ROC-AUC — XGBoost Wins (87.00%)
 ROC-AUC of **87.00%** is the highest in the comparison. This means that when
@@ -266,15 +192,9 @@ substantially higher precision (70.66%) and the highest ROC-AUC (87.00%).
 - If retention budget is limited and targeting must be precise → use Tuned XGBoost
 - For a balanced, production-grade system → Tuned XGBoost is the recommended choice
 
-### Why Default XGBoost Underperformed
-Default XGBoost (78.68% accuracy, 84.34% AUC) used no hyperparameter tuning.
-After RandomizedSearchCV optimised parameters like learning rate, max depth,
-and number of estimators, accuracy improved to **81.24%** and AUC to **87.00%**,
-confirming that careful tuning is essential for structured tabular data.
-
 ---
 
-## 📋 Rule-Based Model
+## Rule-Based Model
 
 ```python
 def rule_based_churn_predictor(row):
@@ -302,20 +222,20 @@ learn from data and cannot adapt when customer behaviour shifts.
 | Aspect           | Tuned XGBoost   | Rule-Based       |
 |------------------|-----------------|------------------|
 | Accuracy         | 81.24%          | 76.82%           |
-| Recall (Churn)   | 56.71%          | 20.00% ⚠️        |
+| Recall (Churn)   | 56.71%          | 20.00%           |
 | Precision        | 70.66%          | 73.00%           |
 | F1 Score         | 62.92%          | 32.00%           |
 | ROC-AUC          | 87.00%          | N/A              |
-| Adapts to Data   | ✅ Yes          | ❌ No            |
-| Interpretability | Medium          | ✅ High          |
+| Adapts to Data   | Yes             | No               |
+| Interpretability | Medium          | High             |
 
-**Conclusion:** Rule-based logic is useful for quick human-readable screening
+Rule-based logic is useful for quick human-readable screening
 and business explainability, but it cannot replace ML for accurate churn
 detection. Its 20% recall means 8 out of 10 churning customers go undetected.
 
 ---
 
-## 🌐 Deployment
+## Deployment
 
 The Tuned XGBoost model is deployed as a **Flask web application**.
 
@@ -343,7 +263,7 @@ python app.py
 
 ---
 
-## 💡 Key Findings
+## Key Findings
 
 1. **Accuracy alone is not enough** — the rule-based model achieves 76.82%
    accuracy yet catches only 20% of actual churners. ROC-AUC and Recall are
@@ -367,7 +287,7 @@ python app.py
 
 ---
 
-## 🏢 Business Recommendation
+## Business Recommendation
 
 > Customers on **month-to-month contracts** with **tenure under 6 months**
 > and **monthly charges above $70** represent the highest churn-risk segment.
@@ -382,7 +302,7 @@ python app.py
 
 ---
 
-## 📚 References
+## References
 
 1. Agiwal, R. (2025). *Comparative Analysis of Machine Learning Algorithms for Customer Churn Prediction*. IJSRET, Vol 11, Issue 2, ISSN: 2395-566X.
 2. Burez, J. & Van den Poel, D. (2009). *Handling class imbalance in customer churn prediction*. Expert Systems with Applications, 36(3), 4626–4636.
@@ -390,7 +310,7 @@ python app.py
 
 ---
 
-## 🛠️ Technologies Used
+## Technologies Used
 
 | Category      | Tools                               |
 |---------------|-------------------------------------|
