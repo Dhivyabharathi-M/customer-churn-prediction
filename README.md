@@ -202,17 +202,6 @@ def rule_based_churn_predictor(row):
     return 1 if risk_score >= 3 else 0
 ```
 
-**Rule-Based Results:**
-- Accuracy: **76.82%**
-- Precision: 73% — but only for the non-churn class
-- **Recall for churn: only 20%** — misses 80% of actual churners
-- F1 for churn class: just **0.32**
-
-This confirms the core limitation of rule-based systems: while the accuracy
-looks acceptable, it almost entirely ignores churners. The model predicted
-very few positives (churn = 1), so its recall is critically low. It cannot
-learn from data and cannot adapt when customer behaviour shifts.
-
 | Aspect           | Tuned XGBoost   | Rule-Based       |
 |------------------|-----------------|------------------|
 | Accuracy         | 81.24%          | 76.82%           |
@@ -286,21 +275,5 @@ python app.py
 1. Agiwal, R. (2025). *Comparative Analysis of Machine Learning Algorithms for Customer Churn Prediction*. IJSRET, Vol 11, Issue 2, ISSN: 2395-566X.
 2. Burez, J. & Van den Poel, D. (2009). *Handling class imbalance in customer churn prediction*. Expert Systems with Applications, 36(3), 4626–4636.
 3. IBM Cognos Analytics Telco Customer Churn Dataset. https://www.ibm.com/docs/cognos-analytics
-
----
-
-## Technologies Used
-
-| Category      | Tools                               |
-|---------------|-------------------------------------|
-| Language      | Python 3.13                         |
-| Data Analysis | Pandas, NumPy                       |
-| Visualisation | Matplotlib, Seaborn                 |
-| ML Models     | Scikit-learn, XGBoost               |
-| Imbalance     | imbalanced-learn (SMOTE)            |
-| Tuning        | RandomizedSearchCV                  |
-| Deployment    | Flask                               |
-| Model Saving  | Pickle, Joblib                      |
-| Notebook      | Jupyter                             |
 
 ---
