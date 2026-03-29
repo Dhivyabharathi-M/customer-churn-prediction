@@ -1,6 +1,6 @@
-# 📊 Customer Churn Prediction + Rule-Based Logic
+# Customer Churn Prediction + Rule-Based Logic
 
-## 📌 Project Overview
+## Project Overview
 
 This project focuses on predicting customer churn using Machine Learning models and comparing them with a Rule-Based system.
 
@@ -8,14 +8,14 @@ The goal is to identify customers who are likely to leave (churn) and provide in
 
 ---
 
-## 📂 Dataset Used
+## Dataset Used
 
 ### IBM Telco Customer Churn Dataset (Extended Version)
 
 Dataset Link:  
 https://www.kaggle.com/datasets/yeanzc/telco-customer-churn-ibm-dataset
 
-### 📊 Dataset Description
+###  Dataset Description
 
 - Total Records: 7,043 customers  
 - Total Features: 33 columns  
