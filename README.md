@@ -174,9 +174,6 @@ An important observation: **Logistic Regression achieved the highest Recall
 only 55.71%, which means 44.29% of its churn predictions are wrong — causing
 unnecessary retention spend.
 
-XGBoost makes a more informed trade-off: slightly lower recall (56.71%) but
-substantially higher precision (70.66%) and the highest ROC-AUC (87.00%).
-
 **The choice depends on business context:**
 - If the cost of a missed churner is very high → prioritise Recall → use Logistic Regression
 - If retention budget is limited and targeting must be precise → use Tuned XGBoost
@@ -266,10 +263,3 @@ python app.py
 
 ---
 
-## References
-
-1. Agiwal, R. (2025). *Comparative Analysis of Machine Learning Algorithms for Customer Churn Prediction*. IJSRET, Vol 11, Issue 2, ISSN: 2395-566X.
-2. Burez, J. & Van den Poel, D. (2009). *Handling class imbalance in customer churn prediction*. Expert Systems with Applications, 36(3), 4626–4636.
-3. IBM Cognos Analytics Telco Customer Churn Dataset. https://www.ibm.com/docs/cognos-analytics
-
----
