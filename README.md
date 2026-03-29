@@ -61,10 +61,6 @@ customer-churn-prediction/
 | Membership      | `Contract`        | Direct       |
 | Churn           | `Churn Label`     | Direct       |
 
-> **Leakage Prevention:** `Churn Score`, `Churn Value`, and `Churn Reason`
-> were dropped before training. These columns are derived directly from the churn
-> outcome and would cause **data leakage** — inflating model scores dishonestly.
-
 ---
 
 ## Project Workflow
