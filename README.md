@@ -209,3 +209,11 @@ The model was deployed using Flask:
 ---
 
 ## 📦 Project Structure
+customer-churn-prediction/
+│
+├── data/
+├── notebooks/
+├── models/
+├── app/
+├── README.md
+└── requirements.txt
